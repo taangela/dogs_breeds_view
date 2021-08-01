@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "react-bootstrap/Modal";
+import { Modal } from "react-bootstrap";
 
 const ALL_DOGS_LIST = "https://dog.ceo/api/breeds/list/all";
 const BREED_URL_START = "https://dog.ceo/api/breed/";
@@ -12,7 +12,8 @@ class List extends React.Component {
       error: null,
       isLoaded: false,
       items: [],
-      imageURL: []
+      imageURL: [],
+      show: false
     };
   }
 
@@ -45,9 +46,10 @@ class List extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            imageURL: result.message
+            imageURL: result.message,
+            show: true
           });
-          console.log("imageURL", this.state.imageURL);
+          console.log("show", this.state.show);
         },
         (error) => {
           this.setState({
@@ -57,10 +59,14 @@ class List extends React.Component {
         }
       );
   };
-  //https://dog.ceo/api/breed/hound/images/random Fetch!
+
+  handleClose = () => {
+    this.setState({ show: false });
+    console.log("dzieje się");
+  };
 
   render() {
-    const { error, isLoaded, items, imageURL } = this.state;
+    const { error, isLoaded, items, imageURL, show } = this.state;
     if (error) {
       return <div>Błąd: {error.message}</div>;
     } else if (!isLoaded) {
@@ -78,11 +84,16 @@ class List extends React.Component {
               </button>
             ))}
           </div>
-          <div>
-            {imageURL.map((img) => (
-              <img src={img} alt={"dog"} />
-            ))}
-          </div>
+          <Modal show={show} onHide={this.handleClose}>
+            <Modal.Header closeButton></Modal.Header>
+            <Modal.Body>
+              <div>
+                {imageURL.map((img) => (
+                  <img src={img} alt={"dog"} key={img.index} />
+                ))}
+              </div>
+            </Modal.Body>
+          </Modal>
         </div>
       );
     }
@@ -92,3 +103,6 @@ class List extends React.Component {
 export default List;
 
 //<Button onClick={this.choseBreed}>{breed}</Button>
+//.filter((breed) => {
+// return breed.includes("akita");
+//})
