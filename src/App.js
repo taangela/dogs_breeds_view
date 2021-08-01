@@ -4,7 +4,7 @@ import List from "./List.js";
 export default function App() {
   return (
     <div className="App">
-      <p>będzie dobrze</p>
+      <p>jak komitować w gicie</p>
       <List />
     </div>
   );

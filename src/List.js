@@ -66,6 +66,7 @@ class List extends React.Component {
       return <div>Ładowanie...</div>;
     } else {
       //console.log("state", this.state);
+      //test
       return (
         <div>
           <div>
