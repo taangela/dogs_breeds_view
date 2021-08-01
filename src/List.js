@@ -1,4 +1,5 @@
 import React from "react";
+import Modal from "react-bootstrap/Modal";
 
 const ALL_DOGS_LIST = "https://dog.ceo/api/breeds/list/all";
 const BREED_URL_START = "https://dog.ceo/api/breed/";
