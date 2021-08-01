@@ -77,7 +77,11 @@ class List extends React.Component {
               </button>
             ))}
           </div>
-          <div>{imageURL.map}</div>
+          <div>
+            {imageURL.map((img) => (
+              <img src={img} alt={"dog"} />
+            ))}
+          </div>
         </div>
       );
     }
