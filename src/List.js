@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
+import Mymodal from "./Mymodal/Mymodal.js";
 
 const ALL_DOGS_LIST = "https://dog.ceo/api/breeds/list/all";
 const BREED_URL_START = "https://dog.ceo/api/breed/";
@@ -13,8 +13,9 @@ class List extends React.Component {
       isLoaded: false,
       items: [],
       imageURL: [],
+      //zmienić nazwę na imageURLs
       show: false,
-      inputText: ''
+      inputText: ""
     };
   }
 
@@ -50,7 +51,7 @@ class List extends React.Component {
             imageURL: result.message,
             show: true
           });
-          console.log("show", this.state.show);
+          console.log("show", this.state.imageURL);
         },
         (error) => {
           this.setState({
@@ -61,15 +62,14 @@ class List extends React.Component {
       );
   };
 
-  handleClose = () => {
-    this.setState({ show: false });
-    console.log("dzieje się");
+  handleChange = (e) => {
+    this.setState({ inputText: e.target.value });
+    console.log("input", this.state);
   };
 
-  handleChange = (e) => {
-    this.setState({inputText: e.target.value});
-    console.log('input', this.state );
-  }
+  handleClose = () => {
+    this.setState({ show: false });
+  };
 
   render() {
     const { error, isLoaded, items, imageURL, show, inputText } = this.state;
@@ -77,44 +77,49 @@ class List extends React.Component {
       return <div>Błąd: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Ładowanie...</div>;
-    } else if (inputText === ''){
+    } else if (inputText === "") {
+      console.log("imageURL before", imageURL);
       return (
         <div>
           <form>
-            <label for="breedsearch">Breeds search:</label>
-            <input type="search" value={inputText} onChange={this.handleChange}  />
-          </form> 
+            <label>Breeds search:</label>
+            <input
+              type="search"
+              value={inputText}
+              onChange={this.handleChange}
+            />
+          </form>
           <div>
             {items.map((breed) => (
-                //zapisać sobie dlaczego to jest fajne
-                <button onClick={() => this.handleClick(breed)} key={breed}>
-                  {breed}
-                </button>
-              ))}
+              //zapisać sobie dlaczego to jest fajne
+              <button onClick={() => this.handleClick(breed)} key={breed}>
+                {breed}
+              </button>
+            ))}
           </div>
-          <Modal show={show} onHide={this.handleClose}>
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body>
-              <div>
-                {imageURL.map((img) => (
-                  <img src={img} alt={"dog"} key={img.index} />
-                ))}
-              </div>
-            </Modal.Body>
-          </Modal>
+          <Mymodal
+            show={show}
+            imageURL={imageURL}
+            handleClose={this.handleClose}
+          />
+          ;
         </div>
       );
     } else {
       return (
         <div>
           <form>
-            <label for="breedsearch">Breeds search:</label>
-            <input type="search" value={inputText} onChange={this.handleChange}  />
-            <input type="submit" value="Submit"/>
-          </form> 
+            <label>Breeds search:</label>
+            <input
+              type="search"
+              value={inputText}
+              onChange={this.handleChange}
+            />
+            <input type="submit" value="Submit" />
+          </form>
           <div>
             {items
-              .filter((breed) => { 
+              .filter((breed) => {
                 return breed.includes(inputText);
               })
               .map((breed) => (
@@ -123,16 +128,12 @@ class List extends React.Component {
                 </button>
               ))}
           </div>
-          <Modal show={show} onHide={this.handleClose}>
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body>
-              <div>
-                {imageURL.map((img) => (
-                  <img src={img} alt={"dog"} key={img.index} />
-                ))}
-              </div>
-            </Modal.Body>
-          </Modal>
+          <Mymodal
+            show={show}
+            imageURL={imageURL}
+            handleClose={this.handleClose}
+          />
+          ;
         </div>
       );
     }
@@ -140,5 +141,3 @@ class List extends React.Component {
 }
 
 export default List;
-
-//<Button onClick={this.choseBreed}>{breed}</Button>
