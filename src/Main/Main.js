@@ -1,12 +1,12 @@
 import React from "react";
-import Mymodal from "./Mymodal/Mymodal.js";
-import Form from "./Form/Form.js";
+import Mymodal from "../Mymodal/Mymodal.js";
+import Form from "../Form/Form.js";
 
 const ALL_DOGS_LIST = "https://dog.ceo/api/breeds/list/all";
 const BREED_URL_START = "https://dog.ceo/api/breed/";
 const BREED_URL_END = "/images/random/3";
 
-class List extends React.Component {
+class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,4 +107,4 @@ class List extends React.Component {
   }
 }
 
-export default List;
+export default Main;
