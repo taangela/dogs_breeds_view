@@ -25,7 +25,6 @@ class List extends React.Component {
       .then((res) => res.json())
       .then(
         (result) => {
-          //console.log('items', result);
           this.setState({
             isLoaded: true,
             items: Object.keys(result.message)
@@ -78,41 +77,23 @@ class List extends React.Component {
       return <div>Błąd: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Ładowanie...</div>;
-    } else if (inputText === "") {
-      console.log("imageURL before", imageURL);
+    } else {
+      let filterItems = items.filter((breed) => {
+        if (inputText === "") {
+          return true;
+        } else {
+          return breed.includes(inputText);
+        }
+      });
       return (
         <div>
           <Form value={inputText} handleChange={this.handleChange} />
           <div>
-            {items.map((breed) => (
-              //zapisać sobie dlaczego to jest fajne
+            {filterItems.map((breed) => (
               <button onClick={() => this.handleClick(breed)} key={breed}>
                 {breed}
               </button>
             ))}
-          </div>
-          <Mymodal
-            show={show}
-            imageURL={imageURL}
-            handleClose={this.handleClose}
-          />
-          ;
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Form value={inputText} handleChange={this.handleChange} />
-          <div>
-            {items
-              .filter((breed) => {
-                return breed.includes(inputText);
-              })
-              .map((breed) => (
-                <button onClick={() => this.handleClick(breed)} key={breed}>
-                  {breed}
-                </button>
-              ))}
           </div>
           <Mymodal
             show={show}
