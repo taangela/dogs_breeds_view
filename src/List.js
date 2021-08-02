@@ -13,7 +13,8 @@ class List extends React.Component {
       isLoaded: false,
       items: [],
       imageURL: [],
-      show: false
+      show: false,
+      inputText: ''
     };
   }
 
@@ -65,24 +66,62 @@ class List extends React.Component {
     console.log("dzieje się");
   };
 
+  handleChange = (e) => {
+    this.setState({inputText: e.target.value});
+    console.log('input', this.state );
+  }
+
   render() {
-    const { error, isLoaded, items, imageURL, show } = this.state;
+    const { error, isLoaded, items, imageURL, show, inputText } = this.state;
     if (error) {
       return <div>Błąd: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Ładowanie...</div>;
-    } else {
-      //console.log("state", this.state);
-      //test
+    } else if (inputText === ''){
       return (
         <div>
+          <form>
+            <label for="breedsearch">Breeds search:</label>
+            <input type="search" value={inputText} onChange={this.handleChange}  />
+          </form> 
           <div>
             {items.map((breed) => (
-              //zapisać sobie dlaczego to jest fajne
-              <button onClick={() => this.handleClick(breed)} key={breed}>
-                {breed}
-              </button>
-            ))}
+                //zapisać sobie dlaczego to jest fajne
+                <button onClick={() => this.handleClick(breed)} key={breed}>
+                  {breed}
+                </button>
+              ))}
+          </div>
+          <Modal show={show} onHide={this.handleClose}>
+            <Modal.Header closeButton></Modal.Header>
+            <Modal.Body>
+              <div>
+                {imageURL.map((img) => (
+                  <img src={img} alt={"dog"} key={img.index} />
+                ))}
+              </div>
+            </Modal.Body>
+          </Modal>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <form>
+            <label for="breedsearch">Breeds search:</label>
+            <input type="search" value={inputText} onChange={this.handleChange}  />
+            <input type="submit" value="Submit"/>
+          </form> 
+          <div>
+            {items
+              .filter((breed) => { 
+                return breed.includes(inputText);
+              })
+              .map((breed) => (
+                <button onClick={() => this.handleClick(breed)} key={breed}>
+                  {breed}
+                </button>
+              ))}
           </div>
           <Modal show={show} onHide={this.handleClose}>
             <Modal.Header closeButton></Modal.Header>
@@ -103,6 +142,3 @@ class List extends React.Component {
 export default List;
 
 //<Button onClick={this.choseBreed}>{breed}</Button>
-//.filter((breed) => {
-// return breed.includes("akita");
-//})
