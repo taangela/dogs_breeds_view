@@ -1,5 +1,6 @@
 import React from "react";
 import Mymodal from "./Mymodal/Mymodal.js";
+import Form from "./Form/Form.js";
 
 const ALL_DOGS_LIST = "https://dog.ceo/api/breeds/list/all";
 const BREED_URL_START = "https://dog.ceo/api/breed/";
@@ -81,14 +82,7 @@ class List extends React.Component {
       console.log("imageURL before", imageURL);
       return (
         <div>
-          <form>
-            <label>Breeds search:</label>
-            <input
-              type="search"
-              value={inputText}
-              onChange={this.handleChange}
-            />
-          </form>
+          <Form value={inputText} handleChange={this.handleChange} />
           <div>
             {items.map((breed) => (
               //zapisać sobie dlaczego to jest fajne
@@ -108,15 +102,7 @@ class List extends React.Component {
     } else {
       return (
         <div>
-          <form>
-            <label>Breeds search:</label>
-            <input
-              type="search"
-              value={inputText}
-              onChange={this.handleChange}
-            />
-            <input type="submit" value="Submit" />
-          </form>
+          <Form value={inputText} handleChange={this.handleChange} />
           <div>
             {items
               .filter((breed) => {
