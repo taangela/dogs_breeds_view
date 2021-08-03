@@ -1,9 +1,9 @@
-import "./App.scss";
 import Main from "../Main/Main.js";
+import "./App.scss";
 
 export default function App() {
   return (
-    <div className="App">
+    <div className={"app"}>
       <p>Dogs breed view</p>
       <Main />
     </div>

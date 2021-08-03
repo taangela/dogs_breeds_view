@@ -1,6 +1,8 @@
 import React from "react";
 import Mymodal from "../Mymodal/Mymodal.js";
 import Form from "../Form/Form.js";
+import { Button } from "react-bootstrap";
+import "./Main.scss";
 
 const ALL_DOGS_LIST = "https://dog.ceo/api/breeds/list/all";
 const BREED_URL_START = "https://dog.ceo/api/breed/";
@@ -88,11 +90,15 @@ class Main extends React.Component {
       return (
         <div>
           <Form value={inputText} handleChange={this.handleChange} />
-          <div>
+          <div className={"buttonsWrapper"}>
             {filterItems.map((breed) => (
-              <button onClick={() => this.handleClick(breed)} key={breed}>
+              <Button
+                variant="outline-info"
+                onClick={() => this.handleClick(breed)}
+                key={breed}
+              >
                 {breed}
-              </button>
+              </Button>
             ))}
           </div>
           <Mymodal
