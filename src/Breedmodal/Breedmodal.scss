@@ -8,10 +8,6 @@ img{
   padding-bottom:5px;
   width: 100%;
 }
-.modal-header {
-  display:block;
-  text-align: right;
-}
 .close{
   border: 0px;
   background-color: white; 
@@ -19,4 +15,9 @@ img{
 }
 .sr-only{
   display:none;
+}
+.subbreedWrapper{
+  display: inline-block;
+  margin: 20px;
+  border: 2px solid red;
 }
