@@ -3,4 +3,10 @@ body {
   font-family: "Inter";
 }
 
+@media screen and (max-width: 600px) {
+  body {
+    margin: 50px 10px 10px 10px;
+  }
+}
+
 
