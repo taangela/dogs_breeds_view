@@ -1,5 +1,5 @@
 import React from "react";
-import Breedmodal from "../Breedmodal/Breedmodal.js";
+import Allmodals from "../Allmodals/Allmodals.js";
 import Form from "../Form/Form.js";
 import { Button } from "react-bootstrap";
 import "./Main.scss";
@@ -118,7 +118,7 @@ class Main extends React.Component {
               </Button>
             ))}
           </div>
-          <Breedmodal
+          <Allmodals
             show={show}
             imageURLs={imageURLs}
             subbreeds={subbreeds}

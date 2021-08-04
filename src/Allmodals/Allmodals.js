@@ -1,6 +1,5 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import Onemodal from "../Onemodal/Onemodal.js";
 
 import "./Allmodals.scss";
 
@@ -20,24 +19,28 @@ class Allmodals extends React.Component {
   }
 
   handleClick = (subbreed) => {
+    console.log("klik subbred");
     fetch(`${BREED_URL_START}${HOUND}${subbreed}${BREED_URL_END}`)
       .then((res) => res.json())
       .then(
         (result) => {
-          if (result.message === "Breed not found (sub breed does not exist)") {
+          console.log("result", result);
+          if (!Array.isArray(result.message)) {
+            console.log("alert");
             this.setState({
               errorMessage: true,
               show: true
             });
           } else {
             this.setState({
-              subbreedsURLs: result.message,
+              subbreedurls: result.message,
               errorMessage: false,
               show: true
             });
           }
         },
         (error) => {
+          console.log("error");
           this.setState({
             error
           });
@@ -52,7 +55,25 @@ class Allmodals extends React.Component {
     const { subbreedurls, show, errorMessage } = this.state;
     if (this.props.subbreeds.length === 0) {
       console.log("ab", this.props);
-      return <p>aa</p>;
+      return (
+        <Modal
+          show={this.props.show}
+          imageURLs={this.props.imageURLs}
+          onHide={this.props.handleClose}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{this.props.breed}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {}
+            {this.props.imageURLs.map((img) => (
+              <div clasName={"imgWrapper"}>
+                <img src={img} alt={"dog"} key={img.index} />
+              </div>
+            ))}
+          </Modal.Body>
+        </Modal>
+      );
     } else {
       return (
         <div className={"subbreedWrapper"}>
