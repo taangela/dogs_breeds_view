@@ -8,11 +8,52 @@ const BREED_URL_END = "/images/random/3";
 const HOUND = "hound/";
 
 class Mymodal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      subbreedsURLs: [],
+      show: false,
+      errorMessage: false
+    };
+  }
+
   handleClick = (subbreed) => {
-    console.log("dup", subbreed);
+    fetch(`${BREED_URL_START}${HOUND}${subbreed}${BREED_URL_END}`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log("aaaa", result.message);
+          if (result.message === "Breed not found (sub breed does not exist)") {
+            this.setState({
+              errorMessage: true,
+              show: true
+            });
+            console.log("em");
+          } else {
+            this.setState({
+              subbreedsURLs: result.message,
+              errorMessage: false,
+              show: true
+            });
+            console.log("gdzie ja jestem");
+          }
+        },
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      );
+  };
+
+  handleClose = () => {
+    this.setState({ show: false });
+    console.log("close");
   };
 
   render() {
+    const { subbreedsURLs, show, errorMessage } = this.state;
     if (this.props.subbreeds.length === 0) {
       return (
         <Modal
@@ -24,6 +65,7 @@ class Mymodal extends React.Component {
             <Modal.Title>{this.props.breed}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            {}
             {this.props.imageURLs.map((img) => (
               <div clasName={"imgWrapper"}>
                 <img src={img} alt={"dog"} key={img.index} />
@@ -45,6 +87,26 @@ class Mymodal extends React.Component {
               {subbreed}
             </Button>
           ))}
+          <Modal
+            show={show}
+            subbreedsURLs={subbreedsURLs}
+            onHide={this.handleClose}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title />
+            </Modal.Header>
+            <Modal.Body>
+              {errorMessage ? (
+                <p>Sorry, we don't have any photos of his sub-breed</p>
+              ) : (
+                subbreedsURLs.map((img) => (
+                  <div clasName={"imgWrapper"}>
+                    <img src={img} alt={"dog"} key={img.index} />
+                  </div>
+                ))
+              )}
+            </Modal.Body>
+          </Modal>
         </div>
       );
     }

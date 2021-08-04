@@ -1,5 +1,5 @@
 import React from "react";
-import Mymodal from "../Mymodal/Mymodal.js";
+import Breedmodal from "../Breedmodal/Breedmodal.js";
 import Form from "../Form/Form.js";
 import { Button } from "react-bootstrap";
 import "./Main.scss";
@@ -7,6 +7,8 @@ import "./Main.scss";
 const ALL_DOGS_LIST = "https://dog.ceo/api/breeds/list/all";
 const BREED_URL_START = "https://dog.ceo/api/breed/";
 const BREED_URL_END = "/images/random/3";
+const SUBBREED_URL_START = "https://dog.ceo/api/breed/";
+const SUBBREED_URL_END = "/list";
 
 class Main extends React.Component {
   constructor(props) {
@@ -14,11 +16,11 @@ class Main extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: [],
-      imageURL: [],
-      //zmienić nazwę na imageURLs
+      allbreeds: [],
+      imageURLs: [],
       show: false,
-      inputText: ""
+      inputText: "",
+      subbreeds: []
     };
   }
 
@@ -29,9 +31,8 @@ class Main extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            items: Object.keys(result.message)
+            allbreeds: Object.keys(result.message)
           });
-          console.log("ite", this.state.items);
         },
         (error) => {
           this.setState({
@@ -43,17 +44,25 @@ class Main extends React.Component {
   }
 
   handleClick = (breed) => {
-    console.log("key", breed);
+    fetch(`${SUBBREED_URL_START}${breed}${SUBBREED_URL_END}`)
+      .then((res) => res.json())
+      .then((result) => {
+        this.setState({
+          isLoaded: true,
+          subbreeds: result.message,
+          selectedBreed: breed
+        });
+      });
+
     fetch(`${BREED_URL_START}${breed}${BREED_URL_END}`)
       .then((res) => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            imageURL: result.message,
+            imageURLs: result.message,
             show: true
           });
-          console.log("show", this.state.imageURL);
         },
         (error) => {
           this.setState({
@@ -66,7 +75,6 @@ class Main extends React.Component {
 
   handleChange = (e) => {
     this.setState({ inputText: e.target.value });
-    console.log("input", this.state);
   };
 
   handleClose = () => {
@@ -74,13 +82,22 @@ class Main extends React.Component {
   };
 
   render() {
-    const { error, isLoaded, items, imageURL, show, inputText } = this.state;
+    const {
+      error,
+      isLoaded,
+      allbreeds,
+      imageURLs,
+      show,
+      inputText,
+      subbreeds,
+      selectedBreed
+    } = this.state;
     if (error) {
-      return <div>Błąd: {error.message}</div>;
+      return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <div>Ładowanie...</div>;
+      return <div>Loading...</div>;
     } else {
-      let filterItems = items.filter((breed) => {
+      let filterAllbreeds = allbreeds.filter((breed) => {
         if (inputText === "") {
           return true;
         } else {
@@ -91,7 +108,7 @@ class Main extends React.Component {
         <div>
           <Form value={inputText} handleChange={this.handleChange} />
           <div className={"buttonsWrapper"}>
-            {filterItems.map((breed) => (
+            {filterAllbreeds.map((breed) => (
               <Button
                 variant="outline-info"
                 onClick={() => this.handleClick(breed)}
@@ -101,10 +118,13 @@ class Main extends React.Component {
               </Button>
             ))}
           </div>
-          <Mymodal
+          <Breedmodal
             show={show}
-            imageURL={imageURL}
+            imageURLs={imageURLs}
+            subbreeds={subbreeds}
+            breed={selectedBreed}
             handleClose={this.handleClose}
+            onClick={this.handleClick}
           />
           ;
         </div>
