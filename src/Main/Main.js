@@ -5,9 +5,8 @@ import { Button } from "react-bootstrap";
 import "./Main.scss";
 
 const ALL_DOGS_LIST = "https://dog.ceo/api/breeds/list/all";
-const BREED_URL_START = "https://dog.ceo/api/breed/";
-const BREED_URL_END = "/images/random/3";
-const SUBBREED_URL_START = "https://dog.ceo/api/breed/";
+const URL_START = "https://dog.ceo/api/breed/";
+const URL_END = "/images/random/3";
 const SUBBREED_URL_END = "/list";
 
 class Main extends React.Component {
@@ -44,7 +43,7 @@ class Main extends React.Component {
   }
 
   handleClick = (breed) => {
-    fetch(`${SUBBREED_URL_START}${breed}${SUBBREED_URL_END}`)
+    fetch(`${URL_START}${breed}${SUBBREED_URL_END}`)
       .then((res) => res.json())
       .then((result) => {
         this.setState({
@@ -54,7 +53,7 @@ class Main extends React.Component {
         });
       });
 
-    fetch(`${BREED_URL_START}${breed}${BREED_URL_END}`)
+    fetch(`${URL_START}${breed}${URL_END}`)
       .then((res) => res.json())
       .then(
         (result) => {

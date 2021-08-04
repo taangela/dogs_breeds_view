@@ -3,8 +3,8 @@ import { Modal, Button } from "react-bootstrap";
 
 import "./Allmodals.scss";
 
-const BREED_URL_START = "https://dog.ceo/api/breed/";
-const BREED_URL_END = "/images/random/3";
+const URL_START = "https://dog.ceo/api/breed/";
+const URL_END = "/images/random/3";
 const HOUND = "hound/";
 
 class Allmodals extends React.Component {
@@ -20,7 +20,7 @@ class Allmodals extends React.Component {
 
   handleClick = (subbreed) => {
     console.log("klik subbred");
-    fetch(`${BREED_URL_START}${HOUND}${subbreed}${BREED_URL_END}`)
+    fetch(`${URL_START}${HOUND}${subbreed}${URL_END}`)
       .then((res) => res.json())
       .then(
         (result) => {
