@@ -104,8 +104,16 @@ class Main extends React.Component {
         }
       });
       return (
-        <div>
+        <div className={"container"}>
           <Form value={inputText} handleChange={this.handleChange} />
+          <Allmodals
+            show={show}
+            imageURLs={imageURLs}
+            subbreeds={subbreeds}
+            breed={selectedBreed}
+            handleClose={this.handleClose}
+            onClick={this.handleClick}
+          />
           <div className={"buttonsWrapper"}>
             {filterAllbreeds.map((breed) => (
               <Button
@@ -117,14 +125,6 @@ class Main extends React.Component {
               </Button>
             ))}
           </div>
-          <Allmodals
-            show={show}
-            imageURLs={imageURLs}
-            subbreeds={subbreeds}
-            breed={selectedBreed}
-            handleClose={this.handleClose}
-            onClick={this.handleClick}
-          />
           ;
         </div>
       );

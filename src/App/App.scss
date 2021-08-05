@@ -1,12 +1,16 @@
+@import '../styles/settings.scss';
 
 .app {
   text-align: center;
   margin: auto;
-  color: #002e58;
+  color: $font-color;
+
+  > p {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 50px;
+  }
 }
 
-p {
-  font-size: 30px;
-  text-align: center;
-  margin-bottom: 50px;
-}
+
+

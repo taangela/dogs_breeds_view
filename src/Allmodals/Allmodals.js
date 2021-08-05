@@ -54,7 +54,6 @@ class Allmodals extends React.Component {
   render() {
     const { subbreedurls, show, errorMessage } = this.state;
     if (this.props.subbreeds.length === 0) {
-      console.log("ab", this.props);
       return (
         <Modal
           show={this.props.show}
@@ -93,11 +92,13 @@ class Allmodals extends React.Component {
             onHide={this.handleClose}
           >
             <Modal.Header closeButton>
-              <Modal.Title />
+              <Modal.Title className={"errorMessageTitle"} />
             </Modal.Header>
             <Modal.Body>
               {errorMessage ? (
-                <p>Sorry, we don't have any photos of his sub-breed</p>
+                <p className={"errorMessage"}>
+                  Sorry, we don't have any photos of his sub-breed
+                </p>
               ) : (
                 subbreedurls.map((img) => (
                   <div clasName={"imgWrapper"}>
