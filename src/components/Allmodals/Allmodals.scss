@@ -26,16 +26,19 @@ img{
   border-radius: unset;
   border-top: $border;
   border-bottom: $border;
+  border-right: none;
+  border-left: none;
 
-  
-    .modal-title {
-      border-bottom: none; 
-      padding: 15px;
-    }
 
-    .modal-body {
-      text-align: center;
-    }
+  .modal-title {
+    border-bottom: none; 
+    padding: 15px;
+  }
+
+  .modal-body {
+    text-align: center;
+  }
+
 }
 
 .modal-header {
