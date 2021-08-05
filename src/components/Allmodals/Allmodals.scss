@@ -11,31 +11,30 @@ img{
   padding-bottom:5px;
   width: 100%;
 }
+
 .close{
   border: 0px;
   background-color: white; 
   font-size: 24px;
 }
+
 .sr-only{
   display:none;
 }
-.subbreedWrapper{
-  display: inline-block;
-  width: 80%;
-  margin-bottom: 50px;
+
+.subbreedWrapper > .modal-content{
+  border-radius: unset;
   border-top: $border;
   border-bottom: $border;
-  //position: absolute;
-  //top: 50%;
-  //left: 50%;
-  //transform: translate(-50%, -50%);
-    > p {
-      padding-top: 20px;
-      font-size: 20px;
+
+  
+    .modal-title {
+      border-bottom: none; 
+      padding: 15px;
     }
 
-    > .btn {
-      margin-bottom: 25px;
+    .modal-body {
+      text-align: center;
     }
 }
 
@@ -48,10 +47,12 @@ img{
   padding: 5px;
   border-bottom: 2px solid #C30E05
 }
+
 .modal-body {
   margin: 0 5px;
   color: #002e58;
 }
+
 .errorMessage {
   text-align: center;
   font-size: 18px;

@@ -13,13 +13,12 @@ class Allmodals extends React.Component {
     this.state = {
       error: null,
       subbreedURLs: [],
-      show: false,
+      showModal: false,
       errorMessage: false
     };
   }
 
   handleClick = (subbreed) => {
-    console.log("klik subbred");
     fetch(`${URL_START}${HOUND}${subbreed}${URL_END}`)
       .then((res) => res.json())
       .then(
@@ -29,13 +28,13 @@ class Allmodals extends React.Component {
             console.log("alert");
             this.setState({
               errorMessage: true,
-              show: true
+              showModal: true
             });
           } else {
             this.setState({
               subbreedURLs: result.message,
               errorMessage: false,
-              show: true
+              showModal: true
             });
           }
         },
@@ -47,11 +46,11 @@ class Allmodals extends React.Component {
       );
   };
   handleClose = () => {
-    this.setState({ show: false });
+    this.setState({ showModal: false });
   };
 
   render() {
-    const { subbreedURLs, show, errorMessage, error } = this.state;
+    const { subbreedURLs, showModal, errorMessage, error } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (this.props.subbreeds.length === 0) {
@@ -77,20 +76,33 @@ class Allmodals extends React.Component {
       );
     } else {
       return (
-        <div className={"subbreedWrapper"}>
-          <p>{this.props.breed} sub-breeds</p>
-          {this.props.subbreeds.map((subbreed) => (
-            <Button
-              variant="outline-info"
-              onClick={() => this.handleClick(subbreed)}
-              key={subbreed}
-            >
-              {subbreed}
-            </Button>
-          ))}
+        <div>
           <Modal
             centered
-            show={show}
+            animation={false}
+            show={this.props.show}
+            onHide={this.props.handleClose}
+            dialogClassName="subbreedWrapper"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>{this.props.breed} sub-breeds</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {this.props.subbreeds.map((subbreed) => (
+                <Button
+                  variant="outline-info"
+                  onClick={() => this.handleClick(subbreed)}
+                  key={subbreed}
+                >
+                  {subbreed}
+                </Button>
+              ))}
+            </Modal.Body>
+          </Modal>
+
+          <Modal
+            centered
+            show={showModal}
             subbreedURLs={subbreedURLs}
             onHide={this.handleClose}
           >
