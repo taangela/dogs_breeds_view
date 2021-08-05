@@ -40,7 +40,6 @@ class Allmodals extends React.Component {
           }
         },
         (error) => {
-          console.log("error");
           this.setState({
             error
           });
@@ -52,8 +51,10 @@ class Allmodals extends React.Component {
   };
 
   render() {
-    const { subbreedURLs, show, errorMessage } = this.state;
-    if (this.props.subbreeds.length === 0) {
+    const { subbreedURLs, show, errorMessage, error } = this.state;
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (this.props.subbreeds.length === 0) {
       return (
         <Modal
           show={this.props.show}
@@ -97,7 +98,7 @@ class Allmodals extends React.Component {
             <Modal.Body>
               {errorMessage ? (
                 <p className={"errorMessage"}>
-                  Sorry, we don't have any photos of his sub-breed
+                  Sorry, we don't have any photos of this sub-breed
                 </p>
               ) : (
                 subbreedURLs.map((img) => (
