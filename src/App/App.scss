@@ -6,9 +6,12 @@
   color: $font-color;
 
   > p {
+    padding: 15px 30px;
     font-size: 30px;
     text-align: center;
     margin-bottom: 50px;
+    border-bottom: $border;
+    display:inline-block;
   }
 }
 
