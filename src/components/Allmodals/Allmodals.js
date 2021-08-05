@@ -23,9 +23,7 @@ class Allmodals extends React.Component {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log("result", result);
           if (!Array.isArray(result.message)) {
-            console.log("alert");
             this.setState({
               errorMessage: true,
               showModal: true
@@ -99,7 +97,6 @@ class Allmodals extends React.Component {
               ))}
             </Modal.Body>
           </Modal>
-
           <Modal
             centered
             show={showModal}

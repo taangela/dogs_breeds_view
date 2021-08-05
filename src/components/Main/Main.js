@@ -52,7 +52,6 @@ class Main extends React.Component {
           selectedBreed: breed,
           show: true
         });
-        console.log("jestem tu", this.state.show);
       });
 
     fetch(`${URL_START}${breed}${URL_END}`)
@@ -80,7 +79,6 @@ class Main extends React.Component {
 
   handleClose = () => {
     this.setState({ show: false });
-    console.log("klik", this.state.show);
   };
 
   render() {
