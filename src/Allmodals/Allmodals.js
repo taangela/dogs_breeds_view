@@ -60,6 +60,7 @@ class Allmodals extends React.Component {
           show={this.props.show}
           imageURLs={this.props.imageURLs}
           onHide={this.props.handleClose}
+          centered
         >
           <Modal.Header closeButton>
             <Modal.Title>{this.props.breed}</Modal.Title>
@@ -88,6 +89,7 @@ class Allmodals extends React.Component {
             </Button>
           ))}
           <Modal
+            centered
             show={show}
             subbreedURLs={subbreedURLs}
             onHide={this.handleClose}
