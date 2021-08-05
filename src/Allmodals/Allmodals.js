@@ -12,7 +12,7 @@ class Allmodals extends React.Component {
     super(props);
     this.state = {
       error: null,
-      subbreedurls: [],
+      subbreedURLs: [],
       show: false,
       errorMessage: false
     };
@@ -33,7 +33,7 @@ class Allmodals extends React.Component {
             });
           } else {
             this.setState({
-              subbreedurls: result.message,
+              subbreedURLs: result.message,
               errorMessage: false,
               show: true
             });
@@ -52,7 +52,7 @@ class Allmodals extends React.Component {
   };
 
   render() {
-    const { subbreedurls, show, errorMessage } = this.state;
+    const { subbreedURLs, show, errorMessage } = this.state;
     if (this.props.subbreeds.length === 0) {
       return (
         <Modal
@@ -88,7 +88,7 @@ class Allmodals extends React.Component {
           ))}
           <Modal
             show={show}
-            subbreedurls={subbreedurls}
+            subbreedURLs={subbreedURLs}
             onHide={this.handleClose}
           >
             <Modal.Header closeButton>
@@ -100,7 +100,7 @@ class Allmodals extends React.Component {
                   Sorry, we don't have any photos of his sub-breed
                 </p>
               ) : (
-                subbreedurls.map((img) => (
+                subbreedURLs.map((img) => (
                   <div clasName={"imgWrapper"}>
                     <img src={img} alt={"dog"} key={img.index} />
                   </div>

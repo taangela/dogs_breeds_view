@@ -15,7 +15,7 @@ class Main extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      allbreeds: [],
+      allBreeds: [],
       imageURLs: [],
       show: false,
       inputText: "",
@@ -30,7 +30,7 @@ class Main extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            allbreeds: Object.keys(result.message)
+            allBreeds: Object.keys(result.message)
           });
         },
         (error) => {
@@ -84,7 +84,7 @@ class Main extends React.Component {
     const {
       error,
       isLoaded,
-      allbreeds,
+      allBreeds,
       imageURLs,
       show,
       inputText,
@@ -96,7 +96,7 @@ class Main extends React.Component {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      let filterAllbreeds = allbreeds.filter((breed) => {
+      let filterAllbreeds = allBreeds.filter((breed) => {
         if (inputText === "") {
           return true;
         } else {
