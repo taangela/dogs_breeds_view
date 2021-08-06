@@ -64,7 +64,7 @@ class Allmodals extends React.Component {
           </Modal.Header>
           <Modal.Body>
             {}
-            {this.props.imageURLs.map((img) => (
+            {this.props.imageURLs.map((img, index) => (
               <div clasName={"imgWrapper"}>
                 <img src={img} alt={"dog"} key={img.index} />
               </div>
