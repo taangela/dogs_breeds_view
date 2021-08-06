@@ -5,7 +5,6 @@ import "./Allmodals.scss";
 
 const URL_START = "https://dog.ceo/api/breed/";
 const URL_END = "/images/random/3";
-const HOUND = "hound/";
 
 class Allmodals extends React.Component {
   constructor(props) {
@@ -18,8 +17,8 @@ class Allmodals extends React.Component {
     };
   }
 
-  handleClick = (subbreed) => {
-    fetch(`${URL_START}${HOUND}${subbreed}${URL_END}`)
+  handleClick = (subbreed, breed) => {
+    fetch(`${URL_START}${breed}/${subbreed}${URL_END}`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -48,10 +47,11 @@ class Allmodals extends React.Component {
   };
 
   render() {
+    const { subbreeds } = this.props;
     const { subbreedURLs, showModal, errorMessage, error } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
-    } else if (this.props.subbreeds.length === 0) {
+    } else if (subbreeds.length === 0) {
       return (
         <Modal
           show={this.props.show}
@@ -89,7 +89,7 @@ class Allmodals extends React.Component {
               {this.props.subbreeds.map((subbreed) => (
                 <Button
                   variant="outline-info"
-                  onClick={() => this.handleClick(subbreed)}
+                  onClick={() => this.handleClick(subbreed, this.props.breed)}
                   key={subbreed}
                 >
                   {subbreed}
