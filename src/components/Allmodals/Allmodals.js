@@ -66,7 +66,7 @@ class Allmodals extends React.Component {
             {}
             {this.props.imageURLs.map((img, index) => (
               <div clasName={"imgWrapper"}>
-                <img src={img} alt={"dog"} key={img.index} />
+                <img src={img} alt={"dog"} key={index} />
               </div>
             ))}
           </Modal.Body>
@@ -112,9 +112,9 @@ class Allmodals extends React.Component {
                   Sorry, we don't have any photos of this sub-breed
                 </p>
               ) : (
-                subbreedURLs.map((img) => (
+                subbreedURLs.map((img, index) => (
                   <div clasName={"imgWrapper"}>
-                    <img src={img} alt={"dog"} key={img.index} />
+                    <img src={img} alt={"dog"} key={index} />
                   </div>
                 ))
               )}
